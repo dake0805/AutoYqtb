@@ -51,11 +51,11 @@ def yqtb(cookie, account):
     header = {
         'Origin': 'http://yqtb.nwpu.edu.cn',
         'Referer': 'http://yqtb.nwpu.edu.cn/wx/ry/jrsb.jsp',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36'
     }
     user = requests.session()
     result = user.post('http://yqtb.nwpu.edu.cn/wx/ry/ry_util.jsp',
-                       cookie=cookie,
+                       cookies=cookie,
                        data=data,
                        headers=header)
     print(result.text)
