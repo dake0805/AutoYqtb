@@ -21,9 +21,13 @@ def login(account, password):
         'lt': form_data_lt,
         '_eventId': 'submit'
     }
-    response = user.post('https://uis.nwpu.edu.cn/cas/login;jsessionid=' + JSESSIONID, data=postData, headers=header)
-    cookie = response.cookies
-    return cookie
+    postResponse = user.post('https://uis.nwpu.edu.cn/cas/login;jsessionid=' + JSESSIONID, data=postData,
+                             headers=header)
+    cookie = postResponse.cookies
+    if "CASTGC" in dict(postResponse.cookies).keys():
+        return cookie
+    print("login error")
+    exit(0)
 
 
 def yqtb(cookie, account):
@@ -63,6 +67,7 @@ def yqtb(cookie, account):
 
 if __name__ == '__main__':
     account = input('input account:')
+    # account = '201712345'
     password = input('input password:')
     cookie = login(account, password)
     yqtb(cookie, account)
