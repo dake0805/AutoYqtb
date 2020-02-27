@@ -1,7 +1,6 @@
-from lxml import etree
-import MySQLdb
+import pymysql
 import requests
-from http.cookiejar import CookieJar
+from lxml import etree
 
 
 def login(account, password):
@@ -30,12 +29,12 @@ def login(account, password):
     exit(0)
 
 
-def yqtb(cookie, account):
+def yqtb(cookie, account, location):
     data = {
         'actionType': 'addRbxx',
         'userLoginId': account,
         'szcsbm': '3',  # 所在城市 2：在西安 3：其他
-        'szcsmc': '安徽省淮南市',  # 所在城市名称
+        'szcsmc': location,  # 所在城市名称
         'sfjt': '0',  # 是否经停
         'sfjtsm': '',  # 是否经停说明
         'sfjcry': '0',  # 是否接触人员
@@ -65,9 +64,20 @@ def yqtb(cookie, account):
     print(result.text)
 
 
+def run():
+    db = pymysql.connect(host="localhost", port=3307, user="test", passwd="1234",
+                         db="yqtb", charset="utf8")
+    sql = """SELECT * FROM user"""
+    cursor = db.cursor()
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    for row in results:
+        account = row[0]
+        location = row[1]
+        password = row[2]
+        cookie = login(account, password)
+        yqtb(cookie, account, location)
+
+
 if __name__ == '__main__':
-    account = input('input account:')
-    # account = '201712345'
-    password = input('input password:')
-    cookie = login(account, password)
-    yqtb(cookie, account)
+    run()
