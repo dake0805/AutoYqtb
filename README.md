@@ -1,5 +1,5 @@
 # AutoYqtbSubmit
-## 一键疫情填报
+## 一键疫情填报 西北工业大学
 http://yqtb.nwpu.edu.cn/wx/ry/jrsb.jsp
 
 可用
