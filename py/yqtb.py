@@ -1,5 +1,5 @@
 from lxml import etree
-
+import MySQLdb
 import requests
 from http.cookiejar import CookieJar
 
@@ -40,7 +40,7 @@ def yqtb(cookie, account):
         'sfjtsm': '',  # 是否经停说明
         'sfjcry': '0',  # 是否接触人员
         'sfjcrysm': '',  # 是否接触人员说明
-        'sfjcqz': '0 ',  # 是否接触确诊
+        'sfjcqz': '0',  # 是否接触确诊
         'sfyzz': '0',  # var sfyzz =  $('input[name='radio5']:checked').val();
         'sfqz': '0',  # 是否确诊
         'ycqksm': '',  # 异常情况说明
@@ -50,7 +50,7 @@ def yqtb(cookie, account):
         'tbly': 'sso',  # what's this?
         'glyy': '',  # 隔离原因
         'qtqksm': '',
-        'sfjcqzsm': ''
+        'sfjcqzsm': ''  # 是否接触确诊说明
     }
     header = {
         'Origin': 'http://yqtb.nwpu.edu.cn',
