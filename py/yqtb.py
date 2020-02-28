@@ -1,7 +1,6 @@
-import time
-
 import pymysql
 import requests
+import time
 from lxml import etree
 
 
@@ -48,7 +47,9 @@ def yqtb(cookie, account, location):
         'tbly': 'sso',  # what's this?
         'glyy': '',  # 隔离原因
         'qtqksm': '',
-        'sfjcqzsm': ''  # 是否接触确诊说明
+        'sfjcqzsm': '',  # 是否接触确诊说明
+        'sfjkqk': '0',
+        'jkqksm': ''
     }
     header = {
         'Origin': 'http://yqtb.nwpu.edu.cn',
