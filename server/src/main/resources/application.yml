@@ -2,9 +2,9 @@ spring:
   datasource:
     username: dake0805
     password:
-    platform: mariiadb
+    platform: mariadb
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://:3306/yqtb?useUnicode=true&characterEncoding=utf8&serverTimezone=Hongkong
+    url: jdbc:mariadb://localhost:3306/yqtb?useUnicode=true&characterEncoding=utf8&serverTimezone=Hongkong
   jpa:
     database:
     hibernate:
