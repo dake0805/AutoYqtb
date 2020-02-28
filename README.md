@@ -10,6 +10,9 @@ http://yqtb.nwpu.edu.cn/wx/ry/jrsb.jsp
 - 示例：[112.74.126.191:8080]()
 - 明文保存密码，信不过别用
 
+## 单人用python脚本
+https://github.com/dake0805/AutoYqtb/tree/python-only
+
 ## 仅供学习，填报选项均为无症状，所在城市为其他
 
 ## 请根据自身情况使用
