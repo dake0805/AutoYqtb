@@ -48,7 +48,9 @@ def yqtb(cookie, account, location):
         'tbly': 'sso',  # what's this?
         'glyy': '',  # 隔离原因
         'qtqksm': '',
-        'sfjcqzsm': ''  # 是否接触确诊说明
+        'sfjcqzsm': '',  # 是否接触确诊说明
+        'sfjkqk': '0',
+        'jkqksm': ''
     }
     header = {
         'Origin': 'http://yqtb.nwpu.edu.cn',
@@ -71,9 +73,9 @@ def run():
     cursor.execute(sql)
     results = cursor.fetchall()
     for row in results:
-        account = row[0]
-        location = row[1]
-        password = row[2]
+        account = row[1]
+        location = row[2]
+        password = row[3]
         cookie = login(account, password)
         if "CASTGC" in dict(cookie).keys():
             yqtb(cookie, account, location)
