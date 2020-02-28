@@ -1,3 +1,5 @@
+import time
+
 import pymysql
 import requests
 from lxml import etree
@@ -23,10 +25,7 @@ def login(account, password):
     postResponse = user.post('https://uis.nwpu.edu.cn/cas/login;jsessionid=' + JSESSIONID, data=postData,
                              headers=header)
     cookie = postResponse.cookies
-    if "CASTGC" in dict(postResponse.cookies).keys():
-        return cookie
-    print("login error")
-    exit(0)
+    return cookie
 
 
 def yqtb(cookie, account, location):
@@ -65,7 +64,7 @@ def yqtb(cookie, account, location):
 
 
 def run():
-    db = pymysql.connect(host="localhost", port=3307, user="test", passwd="1234",
+    db = pymysql.connect(host="localhost", port=3306, user="dake0805", passwd="",
                          db="yqtb", charset="utf8")
     sql = """SELECT * FROM user"""
     cursor = db.cursor()
@@ -76,7 +75,11 @@ def run():
         location = row[1]
         password = row[2]
         cookie = login(account, password)
-        yqtb(cookie, account, location)
+        if "CASTGC" in dict(cookie).keys():
+            yqtb(cookie, account, location)
+            time.sleep(10)
+        else:
+            print("login error")
 
 
 if __name__ == '__main__':

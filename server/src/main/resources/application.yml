@@ -1,18 +1,15 @@
 spring:
   datasource:
-    username: h2user
+    username: dake0805
     password:
-    platform: h2
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:file:D:/h2/yqtb
-  h2:
-    console:
-      enabled: true
+    platform: mariiadb
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://:3306/yqtb?useUnicode=true&characterEncoding=utf8&serverTimezone=Hongkong
   jpa:
-    database: h2
+    database:
     hibernate:
       ddl-auto: update
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.MariaDBDialect
   thymeleaf:
     prefix: classpath:/templates/
   resources:
