@@ -64,22 +64,15 @@ def yqtb(cookie, account, location):
 
 
 def run():
-    db = pymysql.connect(host="localhost", port=3306, user="dake0805", passwd="",
-                         db="yqtb", charset="utf8")
-    sql = """SELECT * FROM user"""
-    cursor = db.cursor()
-    cursor.execute(sql)
-    results = cursor.fetchall()
-    for row in results:
-        account = row[0]
-        location = row[1]
-        password = row[2]
-        cookie = login(account, password)
-        if "CASTGC" in dict(cookie).keys():
-            yqtb(cookie, account, location)
-            time.sleep(10)
-        else:
-            print("login error")
+    account = "2017300000"
+    location = "XX省XX市"
+    password = "your password"
+    cookie = login(account, password)
+
+    if "CASTGC" in dict(cookie).keys():
+        yqtb(cookie, account, location)
+    else:
+        print("login error")
 
 
 if __name__ == '__main__':
