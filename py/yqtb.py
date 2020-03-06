@@ -50,7 +50,8 @@ def yqtb(cookie, account, location):
         'qtqksm': '',
         'sfjcqzsm': '',  # 是否接触确诊说明
         'sfjkqk': '0',
-        'jkqksm': ''
+        'jkqksm': '',
+        'sfmtbg': ''
     }
     header = {
         'Origin': 'http://yqtb.nwpu.edu.cn',
@@ -63,6 +64,9 @@ def yqtb(cookie, account, location):
                        data=data,
                        headers=header)
     print(result.text)
+    if ("{\"state\":1}" not in result.text):
+        print("error")
+        exit(0)
 
 
 def run():
@@ -79,7 +83,7 @@ def run():
         cookie = login(account, password)
         if "CASTGC" in dict(cookie).keys():
             yqtb(cookie, account, location)
-            time.sleep(10)
+            time.sleep(30)
         else:
             print("login error")
 
