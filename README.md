@@ -11,7 +11,7 @@ http://yqtb.nwpu.edu.cn/wx/ry/jrsb.jsp
 - 明文保存密码，信不过别用
 
 ## 单人用python脚本
-https://github.com/dake0805/AutoYqtb/tree/python-only
+https://github.com/dake0805/AutoYqtb/blob/master/py/yqtb.py
 
 ## 仅供学习，填报选项均为无症状，所在城市为其他
 
