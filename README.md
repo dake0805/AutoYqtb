@@ -7,7 +7,7 @@ http://yqtb.nwpu.edu.cn/wx/ry/jrsb.jsp
 - yqtb.py 输入账号密码地址填报
 
 - spring boot 收集多人账户，批量填报
-- 示例：[112.74.126.191:8080]()
+- 示例：http://112.74.126.191:8080/
 - 明文保存密码，信不过别用
 
 ## 单人用python脚本
