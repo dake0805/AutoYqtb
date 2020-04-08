@@ -30,8 +30,14 @@ def login(account, password):
 
 def yqtb(cookie, account, location):
     data = {
+        'sfczbcqca': '',
+        'czbcqcasjd': '',
+        'sfczbcfhyy': '',
+        'czbcfhyysjd': '',
         'actionType': 'addRbxx',
         'userLoginId': account,
+        'fxzt':2,
+        'userType':2,
         'szcsbm': '3',  # 所在城市 2：在西安 3：其他
         'szcsmc': location,  # 所在城市名称
         'sfjt': '0',  # 是否经停
