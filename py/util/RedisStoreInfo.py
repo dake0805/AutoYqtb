@@ -17,11 +17,14 @@ class RedisStoreInfo(object):
             self.redis_conn.set(city_detail[2].text.strip(), city_detail[1].text)
 
     def get_xzqh(self, city_name):
-        return self.redis_conn.get(city_name).decode()
+        if not self.redis_conn.get(city_name) is None:
+            return self.redis_conn.get(city_name).decode()
+        else:
+            return None
 
 
 # demo
 
 r = RedisStoreInfo()
 print(r.get_xzqh("北京市"))
-print(r.get_xzqh("淮南市"))
+print(r.get_xzqh("淮南"))
