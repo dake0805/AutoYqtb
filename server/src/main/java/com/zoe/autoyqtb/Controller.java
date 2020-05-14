@@ -20,6 +20,8 @@ public class Controller {
     public String index(@RequestParam("account") String account,
                         @RequestParam("password") String password,
                         @RequestParam("location") String location) {
+
+
         User user = new User(account, password, location);
         repo.save(user);
         return "finish";

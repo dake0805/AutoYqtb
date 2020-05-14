@@ -28,37 +28,74 @@ def login(account, password):
     return cookie
 
 
-def yqtb(cookie, account, location):
-    data = {
-        'sfczbcqca': '',
-        'czbcqcasjd': '',
-        'sfczbcfhyy': '',
-        'czbcfhyysjd': '',
-        'actionType': 'addRbxx',
-        'userLoginId': account,
-        'fxzt':2,
-        'userType':2,
-        'szcsbm': '3',  # 所在城市 2：在西安 3：其他
-        'szcsmc': location,  # 所在城市名称
-        'sfjt': '0',  # 是否经停
-        'sfjtsm': '',  # 是否经停说明
-        'sfjcry': '0',  # 是否接触人员
-        'sfjcrysm': '',  # 是否接触人员说明
-        'sfjcqz': '0',  # 是否接触确诊
-        'sfyzz': '0',  # var sfyzz =  $('input[name='radio5']:checked').val();
-        'sfqz': '0',  # 是否确诊
-        'ycqksm': '',  # 异常情况说明
-        'glqk': '0',  # 隔离情况
-        'glksrq': '',  # 隔离开始日期
-        'gljsrq': '',  # 隔离结束日期
-        'tbly': 'sso',  # what's this?
-        'glyy': '',  # 隔离原因
-        'qtqksm': '',
-        'sfjcqzsm': '',  # 是否接触确诊说明
-        'sfjkqk': '0',
-        'jkqksm': '',
-        'sfmtbg': ''
-    }
+def yqtb(cookie, account, location, zip, hubei, name):
+    if (hubei == 1):
+        data = {
+            'sfczbcqca': '',
+            'czbcqcasjd': '',
+            'sfczbcfhyy': '',
+            'czbcfhyysjd': '',
+            'actionType': 'addRbxx',
+            'userLoginId': account,
+            'fxzt': 2,
+            'userType': 2,
+            'userName': name,
+            'szcsbm': zip,  # 所在城市 2：在西安 3：其他
+            'szcsmc': location,  # 所在城市名称
+            'sfjt': '1',  # 是否经停
+            'sfjtsm': '人在湖北',  # 是否经停说明
+            'sfjcry': '1',  # 是否接触人员
+            'sfjcrysm': '人在湖北',  # 是否接触人员说明
+            'sfjcqz': '0',  # 是否接触确诊
+            'sfyzz': '0',  # var sfyzz =  $('input[name='radio5']:checked').val();
+            'sfqz': '0',  # 是否确诊
+            'ycqksm': '',  # 异常情况说明
+            'glqk': '0',  # 隔离情况
+            'glksrq': '',  # 隔离开始日期
+            'gljsrq': '',  # 隔离结束日期
+            'tbly': 'sso',  # what's this?
+            'glyy': '',  # 隔离原因
+            'qtqksm': '',
+            'sfjcqzsm': '',  # 是否接触确诊说明
+            'sfjkqk': '0',
+            'jkqksm': '',
+            'sfmtbg': '',
+            'qrlxzt': ''
+        }
+    else:
+        data = {
+            'sfczbcqca': '',
+            'czbcqcasjd': '',
+            'sfczbcfhyy': '',
+            'czbcfhyysjd': '',
+            'actionType': 'addRbxx',
+            'userLoginId': account,
+            'fxzt': 2,
+            'userType': 2,
+            'userName': name,
+            'szcsbm': zip,  # 所在城市 2：在西安 3：其他
+            'szcsmc': location,  # 所在城市名称
+            'sfjt': '0',  # 是否经停
+            'sfjtsm': '',  # 是否经停说明
+            'sfjcry': '0',  # 是否接触人员
+            'sfjcrysm': '',  # 是否接触人员说明
+            'sfjcqz': '0',  # 是否接触确诊
+            'sfyzz': '0',  # var sfyzz =  $('input[name='radio5']:checked').val();
+            'sfqz': '0',  # 是否确诊
+            'ycqksm': '',  # 异常情况说明
+            'glqk': '0',  # 隔离情况
+            'glksrq': '',  # 隔离开始日期
+            'gljsrq': '',  # 隔离结束日期
+            'tbly': 'sso',  # what's this?
+            'glyy': '',  # 隔离原因
+            'qtqksm': '',
+            'sfjcqzsm': '',  # 是否接触确诊说明
+            'sfjkqk': '0',
+            'jkqksm': '',
+            'sfmtbg': '',
+            'qrlxzt': ''
+        }
+
     header = {
         'Origin': 'http://yqtb.nwpu.edu.cn',
         'Referer': 'http://yqtb.nwpu.edu.cn/wx/ry/jrsb.jsp',
@@ -86,9 +123,12 @@ def run():
         account = row[1]
         location = row[2]
         password = row[3]
+        zip = row[4]
+        hubei = row[5]
+        name = row[6]
         cookie = login(account, password)
         if "CASTGC" in dict(cookie).keys():
-            yqtb(cookie, account, location)
+            yqtb(cookie, account, location, zip, hubei, name)
             time.sleep(30)
         else:
             print("login error")

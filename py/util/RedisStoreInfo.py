@@ -4,7 +4,7 @@ import redis
 
 class RedisStoreInfo(object):
     def __init__(self):
-        self.redis_pool = redis.ConnectionPool(host='localhost', port=6379, password='root', db=0)
+        self.redis_pool = redis.ConnectionPool(host='localhost', port=6379, db=0)
         self.redis_conn = redis.Redis(connection_pool=self.redis_pool)
 
         soup = BeautifulSoup(open('202002281436.html', encoding='utf-8'), features='html.parser')
@@ -27,4 +27,6 @@ class RedisStoreInfo(object):
 
 r = RedisStoreInfo()
 print(r.get_xzqh("北京市"))
-print(r.get_xzqh("淮南"))
+print(r.get_xzqh("田家庵区"))
+print(r.get_xzqh("东莞市"))
+print(r.get_xzqh("凤台县"))

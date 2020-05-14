@@ -9,6 +9,7 @@ import javax.persistence.Id;
 
 @Entity
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -17,6 +18,8 @@ public class User {
     private String password;
 
     private String location;
+
+    private int hubei;
 
 
     public User() {
@@ -27,6 +30,8 @@ public class User {
         this.account = account;
         this.password = password;
         this.location = location;
+        if (location.startsWith("湖北"))
+            hubei = 1;
     }
 
     public String getAccount() {
