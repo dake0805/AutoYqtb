@@ -25,10 +25,10 @@ def login(account, password):
     postResponse = user.post('https://uis.nwpu.edu.cn/cas/login;jsessionid=' + JSESSIONID, data=postData,
                              headers=header)
     cookie = postResponse.cookies
-    return cookie
+    return user
 
 
-def yqtb(cookie, account, location, zip, hubei, name):
+def yqtb(cookie, account, location, zip, hubei, name, xueyuan, cellphone):
     if (hubei == 1):
         data = {
             'sfczbcqca': '',
@@ -60,7 +60,9 @@ def yqtb(cookie, account, location, zip, hubei, name):
             'sfjkqk': '0',
             'jkqksm': '',
             'sfmtbg': '',
-            'qrlxzt': ''
+            'qrlxzt': '',
+            'xymc': xueyuan,
+            'xssjhm': cellphone
         }
     else:
         data = {
@@ -93,7 +95,9 @@ def yqtb(cookie, account, location, zip, hubei, name):
             'sfjkqk': '0',
             'jkqksm': '',
             'sfmtbg': '',
-            'qrlxzt': ''
+            'qrlxzt': '',
+            'xymc': xueyuan,
+            'xssjhm': cellphone
         }
 
     header = {
@@ -126,9 +130,16 @@ def run():
         zip = row[4]
         hubei = row[5]
         name = row[6]
-        cookie = login(account, password)
+        user = login(account, password)
+        cookie = user.cookies
         if "CASTGC" in dict(cookie).keys():
-            yqtb(cookie, account, location, zip, hubei, name)
+            user.get("http://yqtb.nwpu.edu.cn/wx/xg/yz-mobile/index.jsp")
+            getResult = user.get("http://yqtb.nwpu.edu.cn/wx/ry/jbxx_v.jsp")
+            cellphone = (etree.HTML(getResult.content).xpath('//label[text()="手机号码："]/../../span/text()')[0])
+            xueyuan = str(etree.HTML(getResult.content).xpath('//label[text()="学院/大类："]/../../span/text()')[0])
+
+            yqtb(cookie, account, location, zip, hubei, name, xueyuan, cellphone)
+
             time.sleep(30)
         else:
             print("login error")
