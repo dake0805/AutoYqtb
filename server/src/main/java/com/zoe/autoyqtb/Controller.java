@@ -19,10 +19,14 @@ public class Controller {
     @PostMapping("/")
     public String index(@RequestParam("account") String account,
                         @RequestParam("password") String password,
-                        @RequestParam("location") String location) {
+                        @RequestParam("location") String location,
+                        @RequestParam("inschool") String inSchool) {
 
 
         User user = new User(account, password, location);
+        if ("on".equals(inSchool)) {
+            user.isInschool();
+        }
         repo.save(user);
         return "finish";
     }

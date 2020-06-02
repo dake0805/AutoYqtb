@@ -1,3 +1,4 @@
+import re
 import time
 
 import pymysql
@@ -28,7 +29,17 @@ def login(account, password):
     return user
 
 
-def yqtb(cookie, account, location, zip, hubei, name, xueyuan, cellphone):
+def yqtb(cookie, account, location, zip, hubei, name, xueyuan, cellphone, inschool, fxzt):
+    if (fxzt == 1 & hubei == 1):
+        print("error")
+        exit(0)
+
+    if (inschool == 1):
+        zip = '1'
+        location = '在学校'
+
+    print(account + " " + location + " " + zip + " " + name + " " + xueyuan + " " + cellphone + " " + "fxzt" + fxzt)
+
     if (hubei == 1):
         data = {
             'sfczbcqca': '',
@@ -37,7 +48,7 @@ def yqtb(cookie, account, location, zip, hubei, name, xueyuan, cellphone):
             'czbcfhyysjd': '',
             'actionType': 'addRbxx',
             'userLoginId': account,
-            'fxzt': 2,
+            'fxzt': fxzt,
             'userType': 2,
             'userName': name,
             'szcsbm': zip,  # 所在城市 2：在西安 3：其他
@@ -72,7 +83,7 @@ def yqtb(cookie, account, location, zip, hubei, name, xueyuan, cellphone):
             'czbcfhyysjd': '',
             'actionType': 'addRbxx',
             'userLoginId': account,
-            'fxzt': 2,
+            'fxzt': fxzt,
             'userType': 2,
             'userName': name,
             'szcsbm': zip,  # 所在城市 2：在西安 3：其他
@@ -130,6 +141,7 @@ def run():
         zip = row[4]
         hubei = row[5]
         name = row[6]
+        inschool = row[7]
         user = login(account, password)
         cookie = user.cookies
         if "CASTGC" in dict(cookie).keys():
@@ -137,10 +149,16 @@ def run():
             getResult = user.get("http://yqtb.nwpu.edu.cn/wx/ry/jbxx_v.jsp")
             cellphone = (etree.HTML(getResult.content).xpath('//label[text()="手机号码："]/../../span/text()')[0])
             xueyuan = str(etree.HTML(getResult.content).xpath('//label[text()="学院/大类："]/../../span/text()')[0])
+            name = str(etree.HTML(getResult.content).xpath('//label[text()="姓名："]/../../span/text()')[0])
+            fxzt1 = re.findall(r"fxzt:'\d{1,}'", re.findall(r"var paramData.*fxzt:'\d{0,}'",
+                                                            user.get(
+                                                                'http://yqtb.nwpu.edu.cn/wx/ry/jrsb.jsp').text,
+                                                            flags=0)[
+                0])[0]
+            fxzt = re.findall(r"\d{1,}", fxzt1)[0]
+            yqtb(cookie, account, location, zip, hubei, name, xueyuan, cellphone, inschool, fxzt)
 
-            yqtb(cookie, account, location, zip, hubei, name, xueyuan, cellphone)
-
-            time.sleep(30)
+            time.sleep(1)
         else:
             print("login error")
 

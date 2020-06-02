@@ -21,6 +21,8 @@ public class User {
 
     private int hubei;
 
+    private int inschool;
+
 
     public User() {
 
@@ -30,8 +32,9 @@ public class User {
         this.account = account;
         this.password = password;
         this.location = location;
-        if (location.startsWith("湖北"))
+        if (location.startsWith("湖北")) {
             hubei = 1;
+        }
     }
 
     public String getAccount() {
@@ -56,5 +59,9 @@ public class User {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public void isInschool() {
+        this.inschool = 1;
     }
 }
