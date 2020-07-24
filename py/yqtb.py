@@ -5,31 +5,38 @@ import pymysql
 import requests
 from lxml import etree
 
+userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+'Chrome/80.0.3987.122 Safari/537.36 '
+
 
 def login(account, password):
     user = requests.session()
+    user.headers.update({'User-Agent': userAgent})
     getResult = user.get('https://uis.nwpu.edu.cn/cas/login')
-    JSESSIONID = dict(getResult.cookies)['JSESSIONID']
-    print(JSESSIONID)
-    form_data_lt = str(etree.HTML(getResult.content).xpath('//input[@name="lt"]/@value')[0])
+    form_data_execution = str(etree.HTML(getResult.content).xpath('//input[@name="execution"]/@value')[0])
     header = {
-        'Origin': 'https://uis.nwpu.edu.cn',
-        'Referer': 'https://uis.nwpu.edu.cn/cas/login',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36'}
+        'origin': 'https://uis.nwpu.edu.cn',
+        'referer': 'https://uis.nwpu.edu.cn/cas/login',
+    }
     postData = {
         'username': account,
         'password': password,
-        'imageCodeName': '',
-        'lt': form_data_lt,
-        '_eventId': 'submit'
+        'currentMenu': 1,
+        'execution': form_data_execution,
+        '_eventId': 'submit',
+        'geolocation': '',
+        'submit': 'One moment please...'
     }
-    postResponse = user.post('https://uis.nwpu.edu.cn/cas/login;jsessionid=' + JSESSIONID, data=postData,
-                             headers=header)
-    cookie = postResponse.cookies
-    return user
+    user.post('https://uis.nwpu.edu.cn/cas/login', data=postData,
+              headers=header)
+    cookie = user.cookies
+    if "TGC" in dict(cookie).keys():
+        user.get("http://yqtb.nwpu.edu.cn/")
+        print(dict(user.cookies)['JSESSIONID'])
+        return user
 
 
-def yqtb(cookie, account, location, zip, hubei, name, xueyuan, cellphone, inschool, fxzt):
+def yqtb(user, account, location, zip, hubei, name, xueyuan, cellphone, inschool, fxzt):
     if (fxzt == 1 & hubei == 1):
         print("error")
         exit(0)
@@ -114,11 +121,8 @@ def yqtb(cookie, account, location, zip, hubei, name, xueyuan, cellphone, inscho
     header = {
         'Origin': 'http://yqtb.nwpu.edu.cn',
         'Referer': 'http://yqtb.nwpu.edu.cn/wx/ry/jrsb.jsp',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36'
     }
-    user = requests.session()
     result = user.post('http://yqtb.nwpu.edu.cn/wx/ry/ry_util.jsp',
-                       cookies=cookie,
                        data=data,
                        headers=header)
     print(result.text)
@@ -128,7 +132,7 @@ def yqtb(cookie, account, location, zip, hubei, name, xueyuan, cellphone, inscho
 
 
 def run():
-    db = pymysql.connect(host="localhost", port=3306, user="dake0805", passwd="",
+    db = pymysql.connect(host="112.74.126.191", port=3306, user="", passwd="",
                          db="yqtb", charset="utf8")
     sql = """SELECT * FROM user"""
     cursor = db.cursor()
@@ -142,25 +146,24 @@ def run():
         hubei = row[5]
         name = row[6]
         inschool = row[7]
-        user = login(account, password)
-        cookie = user.cookies
-        if "CASTGC" in dict(cookie).keys():
-            user.get("http://yqtb.nwpu.edu.cn/wx/xg/yz-mobile/index.jsp")
-            getResult = user.get("http://yqtb.nwpu.edu.cn/wx/ry/jbxx_v.jsp")
-            cellphone = (etree.HTML(getResult.content).xpath('//label[text()="手机号码："]/../../span/text()')[0])
-            xueyuan = str(etree.HTML(getResult.content).xpath('//label[text()="学院/大类："]/../../span/text()')[0])
-            name = str(etree.HTML(getResult.content).xpath('//label[text()="姓名："]/../../span/text()')[0])
-            fxzt1 = re.findall(r"fxzt:'\d{1,}'", re.findall(r"var paramData.*fxzt:'\d{0,}'",
-                                                            user.get(
-                                                                'http://yqtb.nwpu.edu.cn/wx/ry/jrsb.jsp').text,
-                                                            flags=0)[
-                0])[0]
-            fxzt = re.findall(r"\d{1,}", fxzt1)[0]
-            yqtb(cookie, account, location, zip, hubei, name, xueyuan, cellphone, inschool, fxzt)
 
-            time.sleep(1)
-        else:
-            print("login error")
+        user = login(account, password)
+
+        getResult = user.get("http://yqtb.nwpu.edu.cn/wx/ry/jbxx_v.jsp")
+        cellphone = (etree.HTML(getResult.content).xpath('//label[text()="手机号码："]/../../span/text()')[0])
+        xueyuan = str(etree.HTML(getResult.content).xpath('//label[text()="学院/大类："]/../../span/text()')[0])
+        name = str(etree.HTML(getResult.content).xpath('//label[text()="姓名："]/../../span/text()')[0])
+        fxzt1 = re.findall(r"fxzt:'\d{1,}'", re.findall(r"var paramData.*fxzt:'\d{0,}'",
+                                                        user.get(
+                                                            'http://yqtb.nwpu.edu.cn/wx/ry/jrsb.jsp').text,
+                                                        flags=0)[0])[0]
+        fxzt = re.findall(r"\d{1,}", fxzt1)[0]
+
+        yqtb(user, account, location, zip, hubei, name, xueyuan, cellphone, inschool, fxzt)
+
+        time.sleep(30)
+    else:
+        print("login error")
 
 
 if __name__ == '__main__':
