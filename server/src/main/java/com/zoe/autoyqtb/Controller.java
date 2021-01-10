@@ -19,7 +19,9 @@ public class Controller {
     @PostMapping("/")
     public String index(@RequestParam("account") String account,
                         @RequestParam("password") String password,
-                        @RequestParam("location") String location,
+                        @RequestParam("province") String province,
+                        @RequestParam("city") String city,
+                        @RequestParam(value = "district",required = false) String district,
                         @RequestParam(value = "inschool", required = false) String inSchool) {
 
         User old = repo.findByAccount(account).orElse(null);
@@ -27,7 +29,7 @@ public class Controller {
             return "userExist";
         }
 
-        User user = new User(account, password, location);
+        User user = new User(account, password, province,city,district);
         if ("on".equals(inSchool)) {
             user.isInSchool();
         } else {
