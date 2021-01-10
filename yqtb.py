@@ -11,9 +11,9 @@ import base64
 userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36'
 
 # mysql config
-mysql_username = ""
+mysql_username = "dake0805"
 mysql_passwd = ""
-mysql_host = "101.132.227.83"
+mysql_host = "localhost"
 
 
 def login(account, password):
@@ -37,8 +37,13 @@ def login(account, password):
         'geolocation': '',
         'submit': 'One moment please...'
     }
-    user.post('https://uis.nwpu.edu.cn/cas/login', data=postData,
-              headers=header)
+    login_result = user.post('https://uis.nwpu.edu.cn/cas/login', data=postData,
+                             headers=header)
+
+    if login_result.status_code == 500:
+        print("login error:response HTTP 500")
+        exit(0)
+
     cookie = user.cookies
     if "TGC" in dict(cookie).keys():
         user.get("http://yqtb.nwpu.edu.cn/")
