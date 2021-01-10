@@ -35,7 +35,7 @@ def run():
                                                         flags=0)[0])[0]
         fxzt = re.findall(r"\d{1,}", fxzt1)[0]
 
-        yqtb(user, account, location, zip, hubei, name, xueyuan, cellphone, inschool, fxzt)
+        yqtb(user, account, location, zip, name, xueyuan, cellphone, inschool, fxzt)
 
         time.sleep(30)
     else:
