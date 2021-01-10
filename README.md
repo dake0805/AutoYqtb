@@ -8,11 +8,18 @@ http://yqtb.nwpu.edu.cn/
 
 python 3
 
+mysql (optional)
+
 ## 功能
 
 - 翱翔门户 登录
+  
+  `login.py`
 
 - 疫情填报
+
+  `yqtb.py` `main.py`  
+
     - 在学校
     - 指定城市
 
