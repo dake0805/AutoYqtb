@@ -19,9 +19,9 @@ def run():
         location = row[2]
         password = row[3]
         zip = row[4]
-        hubei = row[5]
-        name = row[6]
-        inschool = row[7]
+        # hubei = row[5]
+        # name = row[6]
+        inschool = row[6]
 
         user = login(account, password)
 

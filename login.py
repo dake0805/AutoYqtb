@@ -38,12 +38,12 @@ def login(account, password):
         exit(0)
 
     cookie = user.cookies
-    if "TGC" in dict(cookie).keys():
+    if "TGC" in dict(cookie).keys() and (login_result.text.find('欢迎使用') != -1):
         user.get("http://yqtb.nwpu.edu.cn/")
         print(dict(user.cookies)['JSESSIONID'])
         return user
     else:
-        print("login error")
+        print("login error @ login.py 46")
         exit(0)
 
 
