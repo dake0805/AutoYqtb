@@ -4,12 +4,22 @@ import time
 import pymysql
 import requests
 from lxml import etree
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_v1_5
+import base64
 
-userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
-'Chrome/80.0.3987.122 Safari/537.36 '
+userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36'
+
+# mysql config
+mysql_username = ""
+mysql_passwd = ""
+mysql_host = "101.132.227.83"
 
 
 def login(account, password):
+    # 密码进行加密处理
+    password = '__RSA__' + encrypt(password)
+
     user = requests.session()
     user.headers.update({'User-Agent': userAgent})
     getResult = user.get('https://uis.nwpu.edu.cn/cas/login')
@@ -34,6 +44,18 @@ def login(account, password):
         user.get("http://yqtb.nwpu.edu.cn/")
         print(dict(user.cookies)['JSESSIONID'])
         return user
+    else:
+        print("login error")
+        exit(0)
+
+
+def encrypt(content):
+    content = bytes(content, "utf8")
+    keyContent = requests.get("https://uis.nwpu.edu.cn/cas/jwt/publicKey").content
+    pubKey = RSA.import_key(keyContent)
+    cipherRSA = PKCS1_v1_5.new(pubKey)
+    cipherText = base64.b64encode(cipherRSA.encrypt(content))
+    return cipherText.decode('utf-8')
 
 
 def yqtb(user, account, location, zip, hubei, name, xueyuan, cellphone, inschool, fxzt):
@@ -132,7 +154,7 @@ def yqtb(user, account, location, zip, hubei, name, xueyuan, cellphone, inschool
 
 
 def run():
-    db = pymysql.connect(host="112.74.126.191", port=3306, user="", passwd="",
+    db = pymysql.connect(host=mysql_host, port=3306, user=mysql_username, passwd=mysql_passwd,
                          db="yqtb", charset="utf8")
     sql = """SELECT * FROM user"""
     cursor = db.cursor()

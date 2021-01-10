@@ -1,13 +1,12 @@
 # AutoYqtbSubmit
 
-## 一键疫情填报 西北工业大学
+## 自动疫情填报 西北工业大学
 
 http://yqtb.nwpu.edu.cn/
 
 ## 环境要求
 
 python 3
-
 
 ## 功能
 
