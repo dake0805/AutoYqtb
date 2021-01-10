@@ -5,5 +5,3 @@ server/src/main/resources/application.yml
 **/.idea/**
 
 ./.idea
-
-./config.py
