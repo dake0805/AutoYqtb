@@ -1,19 +1,20 @@
 # AutoYqtbSubmit
+
 ## 一键疫情填报 西北工业大学
-http://yqtb.nwpu.edu.cn/wx/ry/jrsb.jsp
 
-可用
+http://yqtb.nwpu.edu.cn/
 
-- yqtb.py 输入账号密码地址填报
+## 环境要求
 
-- spring boot 收集多人账户，批量填报
-- 示例：http://112.74.126.191:8080/
-- 明文保存密码，信不过别用
+python 3
 
-## 单人用python脚本
-https://github.com/dake0805/AutoYqtb/blob/master/py/yqtb.py
 
-## 仅供学习，填报选项均为无症状，所在城市为其他
+## 功能
 
-## 请根据自身情况使用
+- 翱翔门户 登录
 
+- 疫情填报
+    - 在学校
+    - 指定城市
+
+## 仅供学习，使用此程序代表已了解自身健康状况。此程序仅可用于替代正常健康情况的汇报工作。如有非正常健康状况，请停用此程序并及时就医。

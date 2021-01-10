@@ -1,3 +1,7 @@
 
 .idea/workspace.xml
 server/src/main/resources/application.yml
+
+**/.idea/**
+
+./.idea
