@@ -6,26 +6,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
+
     private String account;
 
     private String password;
 
     private String location;
 
-    private int hubei;
+    private Integer hubei = 0;
 
     private int inschool;
 
 
     public User() {
-
     }
 
     public User(String account, String password, String location) {
@@ -61,7 +62,24 @@ public class User {
         this.location = location;
     }
 
-    public void isInschool() {
+    public void isInSchool() {
         this.inschool = 1;
+    }
+
+    public void notInSchool() {
+        this.inschool = 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(account, user.account);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(account);
     }
 }

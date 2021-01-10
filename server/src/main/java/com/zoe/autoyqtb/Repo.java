@@ -2,5 +2,8 @@ package com.zoe.autoyqtb;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface Repo extends JpaRepository<User, String> {
+import java.util.Optional;
+
+public interface Repo extends JpaRepository<User, Integer> {
+    Optional<User> findByAccount(String account);
 }

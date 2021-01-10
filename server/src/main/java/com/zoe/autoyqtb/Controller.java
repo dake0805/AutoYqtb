@@ -20,14 +20,20 @@ public class Controller {
     public String index(@RequestParam("account") String account,
                         @RequestParam("password") String password,
                         @RequestParam("location") String location,
-                        @RequestParam("inschool") String inSchool) {
+                        @RequestParam(value = "inschool", required = false) String inSchool) {
 
+        User old = repo.findByAccount(account).orElse(null);
+        if (old != null) {
+            return "userExist";
+        }
 
         User user = new User(account, password, location);
         if ("on".equals(inSchool)) {
-            user.isInschool();
+            user.isInSchool();
+        } else {
+            user.notInSchool();
         }
-        repo.save(user);
+        repo.saveAndFlush(user);
         return "finish";
     }
 }
