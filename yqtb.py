@@ -4,7 +4,6 @@ def yqtb(user, account, location, zip, name, xueyuan, cellphone, inschool, fxzt)
         location = '在学校'
 
     print(account + " " + location + " " + zip + " " + name + " " + xueyuan + " " + cellphone + " " + "fxzt" + fxzt)
-
     data = {
         'xasymt': '',
         'actionType': 'addRbxx',
@@ -24,6 +23,7 @@ def yqtb(user, account, location, zip, name, xueyuan, cellphone, inschool, fxzt)
         'xssjhm': cellphone
     }
 
+    print(data)
     header = {
         'Origin': 'http://yqtb.nwpu.edu.cn',
         'Referer': 'http://yqtb.nwpu.edu.cn/wx/ry/jrsb.jsp',
