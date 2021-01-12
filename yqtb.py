@@ -5,11 +5,11 @@ def yqtb(user, account, location, zip, name, xueyuan, cellphone, inschool, fxzt)
 
     print(account + " " + location + " " + zip + " " + name + " " + xueyuan + " " + cellphone + " " + "fxzt" + fxzt)
     data = {
-        'xasymt': '',
+        'xasymt': '1',
         'actionType': 'addRbxx',
         'userLoginId': account,
         'fxzt': fxzt,
-        'userType': 2,
+        'userType': '2',
         'userName': name,
         'szcsbm': zip,  # 所在城市编码 2：在西安 3：其他
         'szcsmc': location,  # 所在城市名称
@@ -22,11 +22,11 @@ def yqtb(user, account, location, zip, name, xueyuan, cellphone, inschool, fxzt)
         'xymc': xueyuan,
         'xssjhm': cellphone
     }
-
     print(data)
     header = {
         'Origin': 'http://yqtb.nwpu.edu.cn',
         'Referer': 'http://yqtb.nwpu.edu.cn/wx/ry/jrsb.jsp',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
     }
     result = user.post('http://yqtb.nwpu.edu.cn/wx/ry/ry_util.jsp',
                        data=data,
