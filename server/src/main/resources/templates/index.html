@@ -113,8 +113,9 @@
             type: "POST",
             url: "/new",
             data: data,
-            dataType: "json",
-            success: function (respMsg) {
+            dataType: "text",
+            success: function (resp) {
+                alert(resp)
             }
         });
     }

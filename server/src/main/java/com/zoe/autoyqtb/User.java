@@ -22,21 +22,53 @@ public class User {
     private String location;
 
     private int inschool;
-    private String province;
-    private String city;
-    private String district;
+
+//    private String province;
+//    private String city;
+//    private String district;
+
+    private String zip;
 
 
     public User() {
     }
 
-    public User(String account, String password, String province, String city, String district) {
+    public User(String account, String password, String location, String zip) {
         this.account = account;
         this.password = password;
-        this.location = province + city + district;
-        this.province = province;
-        this.city = city;
-        this.district = district;
+        this.location = location;
+        this.zip = zip;
+    }
+
+
+    public void isInSchool() {
+        this.inschool = 1;
+    }
+
+    public void notInSchool() {
+        this.inschool = 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(account, user.account);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(account);
+    }
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getAccount() {
@@ -63,56 +95,20 @@ public class User {
         this.location = location;
     }
 
-    public Integer getId() {
-        return id;
+    public int getInschool() {
+        return inschool;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setInschool(int inschool) {
+        this.inschool = inschool;
     }
 
-    public String getProvince() {
-        return province;
+
+    public String getZip() {
+        return zip;
     }
 
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
-    }
-
-    public void isInSchool() {
-        this.inschool = 1;
-    }
-
-    public void notInSchool() {
-        this.inschool = 0;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(account, user.account);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(account);
+    public void setZip(String zip) {
+        this.zip = zip;
     }
 }

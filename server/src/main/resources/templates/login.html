@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="../static/js/jquery.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<body>
+<form method="post">
+    <label>
+        account:<input type="text" id="account" required="required"><br>
+        password:<input type="password" id="password" required="required"><br>
+        <input type="button" value="login" onclick="login()">
+    </label>
+</form>
+</body>
+</html>
+
+<script>
+    function login() {
+        let data = {
+            "account": $("#account").val(),
+            "password": $("#password").val()
+        }
+        $.ajax({
+            type: "POST",
+            url: "/login",
+            data: data,
+            dataType: "json",
+            success: function (resp) {
+                console.log(resp)
+            }
+        });
+    }
+</script>
