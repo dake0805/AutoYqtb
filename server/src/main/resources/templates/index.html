@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/js/eams.area.data.js"></script>
+<script src="../static/js/eams.area.js"></script>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,17 +12,50 @@
 云疫情填报
 <form method="post">
     <label>
-        account:<input type="text" name="account" required="required"><br><br>
-        password:<input type="password" name="password" required="required"><br><br>
-        省<input type="text" name="province" placeholder="XX省"><br>
-        市<input type="text" name="city" placeholder="XX市"><br>
-        区<input type="text" name="district" placeholder="XX区"><br>
-
-        <br>我在学校（填报时地点选择是 在学校）<input type="checkbox" name="inschool"><br>
-        <br></label>
-
-    <input type="submit" value="Submit">
+        account:<input type="text" id="account" required="required"><br>
+        password:<input type="password" id="password" required="required"><br><br>
+        <input type="checkbox" id="inSchool">当前在学校<br><br>
+        下面是不在学校时的地址：<br><br>
+        <div>
+            <label for="x12">
+                <div>
+                    <p>在西安（租住校内房屋或住在校外的学生）</p>
+                </div>
+                <div>
+                    <input type="radio" name="szcsbm" value="2" onclick="changeWz(2)" id="x12">
+                </div>
+            </label>
+            <br>
+            <label for="x13">
+                <div>
+                    <p>在国内（西安市以外的其他国内地区）</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="radio" name="szcsbm" value="3" onclick="changeWz(3)" id="x13">
+                </div>
+            </label>
+        </div>
+        <div id="qtwz" style="display: none;margin-top: 0px;">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <select id="province" onchange="changeSelect(this);">
+                        <option value="">-省-</option>
+                    </select>
+                    <select id="city" onchange="changeSelect(this);">
+                        <option value="" style="color:#999;">-市-</option>
+                    </select>
+                    <select name="hjbm" id="district">
+                        <option value="" style="color:#999;">-区/县-</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <input type="button" onclick="mySubmit()" value="submit">
+        <br>
+    </label>
+    <br>
 </form>
+
 
 <br><br>
 <a href="https://github.com/dake0805/AutoYqtb">github</a>
@@ -27,3 +64,106 @@
 <br>仅供学习<br>
 </body>
 </html>
+
+<script>
+    initSeletList();
+</script>
+
+<script>
+    function changeWz(num) {
+        if (num == '3' || num == '4') {
+            $("#qtwz").show();
+            $("input[name='sfmtbg'][value='0']").attr('checked', 'true');
+            if (num == '3') {
+                $("#province").show();
+                $("#city").show();
+                $("#district").show();
+                $("#gwcs").hide();
+                $("#gwcs").val("");
+            } else {
+                $("#province").hide();
+                $("#city").hide();
+                $("#district").hide();
+                $("#gwcs").show();
+
+            }
+
+        } else {
+            $("#qtwz").hide();
+            $("#gwcs").val("");
+        }
+    }
+
+</script>
+
+
+<script>
+    function mySubmit() {
+        console.log("submit")
+        beforeSubmit()
+        let data = {
+            "account": $("#account").val(),
+            "password": $("#password").val(),
+            "locationCode": szcsbm,
+            "locationName": szcsmc,
+            "inSchool": $("#inSchool").is(":checked")
+        }
+        if (!ok) return;
+        $.ajax({
+            type: "POST",
+            url: "/new",
+            data: data,
+            dataType: "json",
+            success: function (respMsg) {
+            }
+        });
+    }
+
+    let szcsbm = "";
+    let szcsmc = "";
+    let ok = true;
+
+    function beforeSubmit() {
+        ok = true;
+        szcsbm = $("input[name='szcsbm']:checked").val();
+        if (szcsbm == undefined || szcsbm == '') {
+            alert("请选择您当前所在的位置！");
+            ok = false;
+            return;
+        }
+        szcsmc = "在学校";
+        if (szcsbm == '2') {
+            szcsmc = "在西安";
+        } else if (szcsbm == '3') {
+            szcsbm = $("#district").val();
+            if ($('#district').css('display') == 'none') {
+                var city = $("#city").val();
+                if (city == "") {
+                    alert("请选择当前所在省市！");
+                    ok = false;
+                    $("#city").focus();
+                    return;
+                }
+                szcsbm = city + "00";
+            } else {
+                if (szcsbm == "") {
+                    alert("请选择当前所在省市区/县！");
+                    ok = false;
+                    $("#district").focus();
+                    return;
+                }
+            }
+            szcsmc = $('#province option').not(function () {
+                return !this.selected;
+            }).text();
+            szcsmc += $('#city option').not(function () {
+                return !this.selected;
+            }).text();
+            if ($('#district').css('display') != 'none') {
+                szcsmc += $('#district option').not(function () {
+                    return !this.selected;
+                }).text();
+            }
+        }
+    }
+</script>
