@@ -15,6 +15,11 @@ public class Controller {
         return "login";
     }
 
+    @GetMapping("/my")
+    public String my() {
+        return "my";
+    }
+
 //    @PostMapping("/")
 //    public String index(@RequestParam("account") String account,
 //                        @RequestParam("password") String password,

@@ -28,7 +28,11 @@
             data: data,
             dataType: "json",
             success: function (resp) {
-                console.log(resp)
+                if (resp == null) {
+                    alert("Login error. Check your account or password.")
+                } else {
+                    window.location.href = "/my?user=" + encodeURIComponent(JSON.stringify(resp))
+                }
             }
         });
     }

@@ -111,4 +111,15 @@ public class User {
     public void setZip(String zip) {
         this.zip = zip;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "account='" + account + '\'' +
+                ", password='" + password + '\'' +
+                ", location='" + location + '\'' +
+                ", inschool=" + inschool +
+                ", zip='" + zip + '\'' +
+                '}';
+    }
 }
