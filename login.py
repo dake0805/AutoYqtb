@@ -43,8 +43,8 @@ def login(account, password):
         print(dict(user.cookies)['JSESSIONID'])
         return user
     else:
-        print("login error @ login.py 46")
-        exit(0)
+        print("login error @ login.py 46 : user account " + account)
+        return
 
 
 def encrypt(content):

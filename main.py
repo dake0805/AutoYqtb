@@ -25,6 +25,9 @@ def run():
 
         user = login(account, password)
 
+        if user is None:
+            continue
+
         getResult = user.get("http://yqtb.nwpu.edu.cn/wx/ry/jbxx_v.jsp")
         cellphone = (etree.HTML(getResult.content).xpath('//label[text()="手机号码："]/../../span/text()')[0])
         xueyuan = str(etree.HTML(getResult.content).xpath('//label[text()="学院/大类："]/../../span/text()')[0])
