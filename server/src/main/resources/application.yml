@@ -5,6 +5,8 @@ database:
 
 
 spring:
+  mvc:
+    static-path-pattern: /static/**
   datasource:
     username: ${database.username}
     password: ${database.password}
