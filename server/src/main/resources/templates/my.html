@@ -166,6 +166,14 @@
 
     function beforeSubmit() {
         ok = true;
+
+        let password = $("#password").val();
+        if (password == undefined || password == null || password == '') {
+            alert("password can't be empty.");
+            ok = false;
+            return;
+        }
+
         szcsbm = $("input[name='szcsbm']:checked").val();
         if (szcsbm == undefined || szcsbm == '') {
             alert("请选择您当前所在的位置！");
