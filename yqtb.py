@@ -5,7 +5,10 @@ def yqtb(user, account, location, zip, name, xueyuan, cellphone, inschool, fxzt)
 
     print(account + " " + location + " " + zip + " " + name + " " + xueyuan + " " + cellphone + " " + "fxzt" + fxzt)
     data = {
-        'xasymt': '1',
+        'sfczbcqca': '',
+        'czbcqcasjd': '',
+        'sfczbcfhyy': '',
+        'czbcfhyysjd': '',
         'actionType': 'addRbxx',
         'userLoginId': account,
         'fxzt': fxzt,
@@ -13,11 +16,24 @@ def yqtb(user, account, location, zip, name, xueyuan, cellphone, inschool, fxzt)
         'userName': name,
         'szcsbm': zip,  # 所在城市编码 2：在西安 3：其他
         'szcsmc': location,  # 所在城市名称
-        'sfyzz': '0',  # var sfyzz =  $('input[name='radio5']:checked').val();
-        'sfqz': '0',  # 是否确诊
-        'tbly': 'sso',  # what's this?
-        'qtqksm': '',
+        'sfjt': '0',
+        'sfjtsm': '',
+        'sfjcry': '0',
+        'sfjcrysm': '',
+        'sfjcqz': '0',
+        'sfyzz': '0',
+        'sfqz': '0',
         'ycqksm': '',
+        'glqk': '0',
+        'glksrq': '',
+        'gljsrq': '',
+        'tbly': 'sso',
+        'glyy': '',
+        'qtqksm': '',
+        'sfjcqzsm': '',
+        'sfjkqk': '0',
+        'jkqksm': '',
+        'sfmtbg': '',
         'qrlxzt': '',
         'xymc': xueyuan,
         'xssjhm': cellphone
