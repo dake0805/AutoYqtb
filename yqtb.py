@@ -11,9 +11,6 @@ def yqtb(user, account, location, zip, name, xueyuan, cellphone, inschool, fxzt)
         'czbcfhyysjd': '',
         'actionType': 'addRbxx',
         'userLoginId': account,
-        'fxzt': fxzt,
-        'userType': '2',
-        'userName': name,
         'szcsbm': zip,  # 所在城市编码 2：在西安 3：其他
         'szcsmc': location,  # 所在城市名称
         'sfjt': '0',
@@ -34,6 +31,8 @@ def yqtb(user, account, location, zip, name, xueyuan, cellphone, inschool, fxzt)
         'sfjkqk': '0',
         'jkqksm': '',
         'sfmtbg': '',
+        'userType': '2',
+        'userName': name,
         'qrlxzt': '',
         'xymc': xueyuan,
         'xssjhm': cellphone
