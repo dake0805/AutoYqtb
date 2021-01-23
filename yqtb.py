@@ -48,6 +48,6 @@ def yqtb(user, account, location, zip, name, xueyuan, cellphone, inschool, fxzt)
                        data=data,
                        headers=header)
     print(result.text)
-    if ("{\"state\":1}" not in result.text):
+    if r'{"state":"1"}' not in result.text:
         print("error")
         exit(0)
