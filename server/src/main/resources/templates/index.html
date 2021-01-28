@@ -3,66 +3,92 @@
 <script src="../static/js/jquery.min.js"></script>
 <script src="../static/js/eams.area.data.js"></script>
 <script src="../static/js/eams.area.js"></script>
-<html lang="en">
+<link rel="stylesheet" href="../static/css/style.css">
+
+<html lang="zh">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>自动填报系统</title>
 </head>
 <body>
-<h2>云疫情填报</h2>
-<a href="/login" style="font-size: 120%;">修改已登记的信息</a><br><br><br>
-<form method="post">
-    <label>
-        account:<input type="text" id="account" required="required"><br>
-        password:<input type="password" id="password" required="required"><br><br>
-        <input type="checkbox" id="inSchool">当前在学校<br><br>
-        下面是不在学校时的地址：<br><br>
-        <div>
-            <label for="x12">
-                <div>
-                    <p>在西安（租住校内房屋或住在校外的学生）</p>
-                </div>
-                <div>
-                    <input type="radio" name="szcsbm" value="2" onclick="changeWz(2)" id="x12">
-                </div>
+<div class="header">
+    <h2>疫情自动填报</h2>
+</div>
+<div class="menu">
+    <a href="/login">修改已登记的信息</a><br><br><br>
+</div>
+
+<div class="register-form">
+    <form method="post">
+
+        <div class="input-box">
+            account:<input type="text" id="account" required="required"><br>
+            password:<input type="password" id="password" required="required"><br><br>
+        </div>
+
+        <div id="location-choose">
+            <label class="location-choose-radio" for="inSchool">
+                在学校
+                <input type="radio" name="szcsbm" id="inSchool">
+                <span class="checkmark"></span>
             </label>
-            <br>
-            <label for="x13">
-                <div>
-                    <p>在国内（西安市以外的其他国内地区）</p>
-                </div>
+
+            <label class="location-choose-radio" for="inXian">
+                在西安（租住校内房屋或住在校外的学生）
+                <input type="radio" name="szcsbm" id="inXian" value="2" onclick="changeWz(2)">
+                <span class="checkmark"></span>
+            </label>
+
+            <label>
+                在国内（西安市以外的其他国内地区）
                 <div class="weui-cell__ft">
                     <input type="radio" name="szcsbm" value="3" onclick="changeWz(3)" id="x13">
                 </div>
             </label>
-        </div>
-        <div id="qtwz" style="display: none;margin-top: 0px;">
-            <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <select id="province" onchange="changeSelect(this);">
-                        <option value="">-省-</option>
-                    </select>
-                    <select id="city" onchange="changeSelect(this);">
-                        <option value="" style="color:#999;">-市-</option>
-                    </select>
-                    <select name="hjbm" id="district">
-                        <option value="" style="color:#999;">-区/县-</option>
-                    </select>
-                </div>
+
+            <div id="qtwz" style="display: none;margin-top: 0;">
+
+                <select id="province" onchange="changeSelect(this);">
+                    <option value="">-省-</option>
+                </select>
+
+                <select id="city" onchange="changeSelect(this);">
+                    <option value="">-市-</option>
+                </select>
+
+                <select name="hjbm" id="district">
+                    <option value="">-区/县-</option>
+                </select>
             </div>
+            <input type="button" onclick="mySubmit()" value="submit">
+            <br>
         </div>
-        <input type="button" onclick="mySubmit()" value="submit">
-        <br>
-    </label>
-    <br>
-</form>
 
+    </form>
+</div>
 
-<br><br>
-<a href="https://github.com/dake0805/AutoYqtb">github</a>
-<br>有疑问？
-<a href="mailto:dake0805@qq.com">dake0805@qq.com</a><br>
-<br>仅供学习<br>
+<footer>
+    <div class="contact">
+        <h3>CONTACT ME</h3>
+        <div class="info-box">
+            <a href="https://github.com/dake0805/AutoYqtb">
+                <img src="http://placehold.it/40x40" alt="">
+                GitHub
+            </a>
+        </div>
+        <div class="info-box">
+            <a href="mailto:dake0805@qq.com">
+                <img src="http://placehold.it/40x40" alt="">
+                Mail
+            </a>
+        </div>
+    </div>
+    <div class="copyright">
+        <br>免责声明<br>
+    </div>
+</footer>
+
 </body>
 </html>
 
