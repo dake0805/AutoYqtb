@@ -22,7 +22,7 @@
 </head>
 <body>
 <div class="container">
-    <div class="header clearfix" style="    margin-bottom: 0;">
+    <div class="header clearfix" style="margin-bottom: 0;">
         <nav>
             <ul class="nav nav-pills pull-right">
                 <li role="presentation" class="active"><a href="#">Home</a></li>
@@ -73,30 +73,39 @@
                 <option value="">-区/县-</option>
             </select>
         </div>
-        <input class="btn btn-primary" type="button" onclick="mySubmit()" value="submit">
+        <input class="btn btn-primary pull-right" type="button" onclick="mySubmit()" value="submit"
+               style="margin-bottom: 10px">
     </form>
-</div>
 
-<footer>
-    <div class="contact">
-        <h3>CONTACT ME</h3>
-        <div class="info-box">
-            <a href="https://github.com/dake0805/AutoYqtb">
-                <img src="http://placehold.it/40x40" alt="">
+    <div style="margin-bottom: 60px">
+
+    </div>
+
+    <footer class="footer">
+        <div class="contact">
+            <a href="https://github.com/dake0805/AutoYqtb" style="margin-right: 20px">
+                <img src="../static/github.svg" alt="" height="24" width="24">
                 GitHub
             </a>
-        </div>
-        <div class="info-box">
+
             <a href="mailto:dake0805@qq.com">
-                <img src="http://placehold.it/40x40" alt="">
+                <img src="../static/mail.svg" alt="" height="24" width="30" style="margin-left: 20px">
                 Mail
             </a>
         </div>
-    </div>
-    <div class="copyright">
-        <br>免责声明<br>
-    </div>
-</footer>
+        <div class="copyright">
+            <p style="margin:auto ; line-height: 36px;text-align: left ">
+                <span><b>免责声明</b></span>
+                <br>
+                此项目仅供学习，使用此程序表示已了解自身健康状况。<br>
+                此程序仅可用于替代正常健康情况的汇报工作。如有非正常健康状况，请停止使用自动填报，并按相关规定汇报以及及时就医。<br>
+                注册此系统将收集翱翔门户的相关账号信息。本系统保证相关账号信息仅将用于自动填表时进行翱翔门户登录，不作他用。
+            </p>
+        </div>
+    </footer>
+</div>
+
+
 
 </body>
 </html>
